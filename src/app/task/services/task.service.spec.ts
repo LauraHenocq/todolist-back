@@ -2,9 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TaskService } from './task.service';
 import { taskEntityMock, tasksEntityMock } from '../models/mocks/task-entity.mock';
 import { getModelToken } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { when } from 'jest-when';
-import { Task } from '../models/schemas/task.schema';
 import { TaskStatus } from '../types/task.status';
 import { NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from '../models/create-task.dto';
@@ -12,7 +10,6 @@ import { UpdateTaskDto } from '../models/update-task.dto';
 
 describe('TaskService', () => {
   let taskService: TaskService;
-  let taskModel: Model<Task>;
 
   const mockTaskModel = {
     find: jest.fn(),
@@ -21,23 +18,22 @@ describe('TaskService', () => {
     findByIdAndUpdate: jest.fn(),
     findByIdAndDelete: jest.fn(),
     constructor: jest.fn().mockImplementation(function () {
-      this.save = jest.fn().mockResolvedValue(this); // Simule la méthode save
+      this.save = jest.fn().mockResolvedValue(this);
     }),
-};
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TaskService,
         {
-            provide: getModelToken('Task'),
-            useValue: mockTaskModel,
+          provide: getModelToken('Task'),
+          useValue: mockTaskModel,
         },
-    ],
+      ],
     }).compile();
 
     taskService = module.get<TaskService>(TaskService);
-    taskModel = module.get<Model<Task>>(getModelToken('Task'));
   });
 
   it('should be defined', () => {
@@ -50,26 +46,26 @@ describe('TaskService', () => {
         {
           _id: 'fake-generated-id-1',
           title: 'Ma première tâche',
-          description: "Description de ma première tâche",
-          status: TaskStatus.TODO
+          description: 'Description de ma première tâche',
+          status: TaskStatus.TODO,
         },
         {
           _id: 'fake-generated-id-2',
           title: 'Ma deuxième tâche',
-          description: "Description de ma deuxième tâche",
-          status: TaskStatus.TODO
+          description: 'Description de ma deuxième tâche',
+          status: TaskStatus.TODO,
         },
         {
           _id: 'fake-generated-id-3',
           title: 'Ma troisième tâche',
-          description: "Description de ma troisième tâche",
-          status: TaskStatus.TODO
+          description: 'Description de ma troisième tâche',
+          status: TaskStatus.TODO,
         },
         {
           _id: 'fake-generated-id-4',
           title: 'Ma quatrième tâche',
-          description: "Description de ma quatrième tâche",
-          status: TaskStatus.TODO
+          description: 'Description de ma quatrième tâche',
+          status: TaskStatus.TODO,
         },
       ];
 
@@ -87,10 +83,10 @@ describe('TaskService', () => {
       const task = {
         _id: 'fake-generated-id-1',
         title: 'Ma première tâche',
-        description: "Description de ma première tâche",
-        status: TaskStatus.TODO
+        description: 'Description de ma première tâche',
+        status: TaskStatus.TODO,
       };
-      
+
       when(mockTaskModel.findById)
         .calledWith('task-id')
         .mockReturnValue({
@@ -125,7 +121,11 @@ describe('TaskService', () => {
   });
 
   describe('updateTask', () => {
-    const updateTaskDto: UpdateTaskDto = { title: 'Updated Task', description: 'updated description', status: TaskStatus.TODO };
+    const updateTaskDto: UpdateTaskDto = {
+      title: 'Updated Task',
+      description: 'updated description',
+      status: TaskStatus.TODO,
+    };
 
     it('should update a task', async () => {
       const updatedTask = { ...updateTaskDto, _id: 'task-id' };
@@ -146,7 +146,9 @@ describe('TaskService', () => {
           exec: jest.fn().mockResolvedValue(null),
         });
 
-      await expect(taskService.updateTask('task-id', updateTaskDto)).rejects.toThrow(NotFoundException);
+      await expect(taskService.updateTask('task-id', updateTaskDto)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 

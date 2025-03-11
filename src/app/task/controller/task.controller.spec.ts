@@ -17,14 +17,14 @@ describe('TaskController', () => {
       controllers: [TaskController],
       providers: [
         {
-            provide: TaskService,
-            useValue: {
-              getTasks: jest.fn(),
-              getTask: jest.fn(),
-              createTask: jest.fn(),
-              updateTask: jest.fn(),
-              deleteTask: jest.fn()
-            },
+          provide: TaskService,
+          useValue: {
+            getTasks: jest.fn(),
+            getTask: jest.fn(),
+            createTask: jest.fn(),
+            updateTask: jest.fn(),
+            deleteTask: jest.fn(),
+          },
         },
       ],
     }).compile();
@@ -35,8 +35,7 @@ describe('TaskController', () => {
 
   describe('getTasks', () => {
     it('should call the getTasks service and return all the tasks when it is called', async () => {
-      when(taskService.getTasks)
-        .mockReturnValue(tasksEntityMock);
+      when(taskService.getTasks).mockReturnValue(tasksEntityMock);
 
       const result = await taskController.getTasks();
 
@@ -46,9 +45,7 @@ describe('TaskController', () => {
 
   describe('getTask', () => {
     it('should call the getTask service and return the task corresponding to the given id when it is called', async () => {
-      when(taskService.getTask)
-        .calledWith('task-id')
-        .mockReturnValue(taskEntityMock);
+      when(taskService.getTask).calledWith('task-id').mockReturnValue(taskEntityMock);
 
       const result = await taskController.getTask('task-id');
 
@@ -78,7 +75,7 @@ describe('TaskController', () => {
       const updateTaskDtoMock: UpdateTaskDto = {
         title: 'Ma première tâche modifiée',
         description: 'Description de ma première tâche modifiée',
-        status: TaskStatus.TODO
+        status: TaskStatus.TODO,
       };
 
       when(taskService.updateTask)

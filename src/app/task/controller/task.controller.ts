@@ -24,10 +24,7 @@ export class TaskController {
   }
 
   @Put(':id')
-  updateTask(
-    @Param('id') id: string,
-    @Body() updateTaskDto: UpdateTaskDto
-  ): Promise<string> {
+  updateTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto): Promise<string> {
     return this.taskService.updateTask(id, updateTaskDto);
   }
 
@@ -36,4 +33,3 @@ export class TaskController {
     return this.taskService.deleteTask(id);
   }
 }
-

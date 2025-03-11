@@ -1,5 +1,4 @@
-import { TaskStatus } from "../types/task.status";
-
+import { TaskStatus } from '../types/task.status';
 
 export type TaskEntityProps = {
   id?: string;

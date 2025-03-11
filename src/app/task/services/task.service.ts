@@ -8,21 +8,19 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TaskService {
-
-  constructor(@InjectModel(TaskModel.name) private taskModel: Model<TaskModel>){}
+  constructor(@InjectModel(TaskModel.name) private taskModel: Model<TaskModel>) {}
 
   async getTasks(): Promise<TaskEntity[]> {
     const tasks = await this.taskModel.find().exec();
-    
-    const tasksToReturn = tasks.map(task => 
-      new TaskEntity(
-        {
+
+    const tasksToReturn = tasks.map(
+      (task) =>
+        new TaskEntity({
           title: task.title,
           description: task.description,
           status: task.status,
-          id: task._id.toString()
-        }
-      )
+          id: task._id.toString(),
+        }),
     );
 
     return tasksToReturn;
@@ -32,15 +30,13 @@ export class TaskService {
     const task = await this.taskModel.findById(id).exec();
 
     if (!task) throw new NotFoundException(`Task with id ${id} was not found`);
-    
-    return new TaskEntity(
-      { 
-        title: task.title,
-        description: task.description,
-        status: task.status, 
-        id: task._id.toString() 
-      }
-    );
+
+    return new TaskEntity({
+      title: task.title,
+      description: task.description,
+      status: task.status,
+      id: task._id.toString(),
+    });
   }
 
   async createTask(createTaskDto: CreateTaskDto): Promise<string> {
@@ -51,8 +47,7 @@ export class TaskService {
   async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<string> {
     const updatedTask = await this.taskModel.findByIdAndUpdate(id, updateTaskDto).exec();
     if (!updatedTask) throw new NotFoundException(`Task with id ${id} was not found`);
-    return `Task with id ${id} has been updated` ;
-
+    return `Task with id ${id} has been updated`;
   }
 
   async deleteTask(id: string): Promise<string> {
