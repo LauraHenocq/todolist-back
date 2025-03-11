@@ -5,7 +5,6 @@ import { TaskEntity } from '../models/task.entity';
 import { Task as TaskModel } from '../models/schemas/task.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class TaskService {

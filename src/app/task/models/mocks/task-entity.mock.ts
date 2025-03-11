@@ -2,7 +2,7 @@ import { TaskStatus } from "../../types/task.status";
 import { TaskEntity } from "../task.entity";
 
 
-export const taskEntityMock = [
+export const tasksEntityMock = [
   new TaskEntity({
     id: 'fake-generated-id-1',
     title: 'Ma première tâche',
@@ -28,3 +28,10 @@ export const taskEntityMock = [
     status: TaskStatus.TODO
   })
 ];
+
+export const taskEntityMock = new TaskEntity({
+  id: 'fake-generated-id-1',
+  title: 'Ma première tâche',
+  description: "Description de ma première tâche",
+  status: TaskStatus.TODO
+});
