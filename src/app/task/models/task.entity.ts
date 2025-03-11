@@ -17,6 +17,7 @@ export class TaskEntity {
   constructor(props: TaskEntityProps) {
     this.id = props.id;
     this.title = props.title;
+    this.description = props.description;
     this._status = props.status;
   }
 

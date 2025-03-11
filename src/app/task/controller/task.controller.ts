@@ -4,22 +4,22 @@ import { CreateTaskDto } from '../models/create-task.dto';
 import { UpdateTaskDto } from '../models/update-task.dto';
 import { TaskEntity } from '../models/task.entity';
 
-@Controller('task')
+@Controller('tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  getTasks(): TaskEntity[] {
+  getTasks(): Promise<TaskEntity[]> {
     return this.taskService.getTasks();
   }
 
   @Get(':id')
-  getTask(@Param('id') id: string): TaskEntity {
+  getTask(@Param('id') id: string): Promise<TaskEntity> {
     return this.taskService.getTask(id);
   }
 
   @Post()
-  createTask(@Body() createTaskDto: CreateTaskDto): string {
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<string> {
     return this.taskService.createTask(createTaskDto);
   }
 
@@ -27,12 +27,12 @@ export class TaskController {
   updateTask(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto
-  ): string {
+  ): Promise<string> {
     return this.taskService.updateTask(id, updateTaskDto);
   }
 
   @Delete(':id')
-  deleteTask(@Param('id') id: string): string {
+  deleteTask(@Param('id') id: string): Promise<string> {
     return this.taskService.deleteTask(id);
   }
 }
