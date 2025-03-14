@@ -62,11 +62,11 @@ describe('TaskController', () => {
 
       when(taskService.createTask)
         .calledWith(createTaskDtoMock)
-        .mockReturnValue('The task has been created');
+        .mockReturnValue('task-id');
 
       const result = await taskController.createTask(createTaskDtoMock);
 
-      expect(result).toEqual('The task has been created');
+      expect(result).toEqual('task-id');
     });
   });
 

@@ -5,6 +5,7 @@ import { TaskEntity } from '../models/task.entity';
 import { Task as TaskModel } from '../models/schemas/task.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { TaskStatus } from '../types/task.status';
 
 @Injectable()
 export class TaskService {
@@ -40,8 +41,13 @@ export class TaskService {
   }
 
   async createTask(createTaskDto: CreateTaskDto): Promise<string> {
-    await new this.taskModel(createTaskDto).save();
-    return 'The task has been created';
+    const taskToCreate = new TaskEntity({
+      ...createTaskDto,
+      status: TaskStatus.TODO
+    }).toApi();
+    
+    const createdTask = await new this.taskModel(taskToCreate).save();
+    return createdTask._id.toString();
   }
 
   async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<string> {

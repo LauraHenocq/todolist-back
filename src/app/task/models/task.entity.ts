@@ -24,6 +24,14 @@ export class TaskEntity {
     return this._status;
   }
 
+  public toApi(): TaskEntityProps {
+    return {
+      title: this.title,
+      description: this.description,
+      status: this.status,
+    }
+  }
+
   public setTaskStatus(status: TaskStatus): void {
     this._status = status;
   }

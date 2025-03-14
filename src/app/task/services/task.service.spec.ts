@@ -112,10 +112,10 @@ describe('TaskService', () => {
     it.skip('should create a task', async () => {
       const createTaskDto: CreateTaskDto = { title: 'New Task', description: 'New Description' };
 
-      mockTaskModel.save.mockResolvedValue('Task has been created');
+      mockTaskModel.save.mockResolvedValue('task-id');
 
       const result = await taskService.createTask(createTaskDto);
-      expect(result).toEqual('The task has been created');
+      expect(result).toEqual('task-id');
       expect(mockTaskModel.save).toHaveBeenCalledWith(createTaskDto);
     });
   });
