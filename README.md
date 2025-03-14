@@ -18,13 +18,13 @@ npm install
 
 Create a file `.env`.
 
-Init it with the variable PORT to define which port do you want to use and the variable MONGO_URI (MongoDB database url).
+Init it with the variable PORT to define which port do you want to use (3000 by default) and the variable MONGO_URI (MongoDB database url, see the value in the docker-compose.yml file).
 
 Then complete it with the private values for your database.
 
 ### 3.
 
-Run the project with docker by using the command `docker-compose up --build`, then go the app on `http://localhost:3000`.
+Run the project with docker by using the command `docker-compose up --build`, then go the app on `http://localhost:3000/tasks`.
 
 
 ## Tests
